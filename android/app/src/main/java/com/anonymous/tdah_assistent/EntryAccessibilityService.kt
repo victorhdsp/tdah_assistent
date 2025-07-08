@@ -69,6 +69,7 @@ class EntryAccessibilityService : AccessibilityService() {
     }
 
     override fun onAccessibilityEvent(event: AccessibilityEvent?) {
+        Log.d("ACCESS_SERVICE", "onAccessibilityEvent chamado")
         if (event == null || EntryModule.instance == null) return
 
         Log.d("ACCESS_SERVICE", "Evento recebido: ${event.eventType}")

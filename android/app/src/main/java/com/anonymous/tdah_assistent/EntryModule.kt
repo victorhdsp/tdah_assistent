@@ -49,13 +49,12 @@ class EntryModule(reactContext: ReactApplicationContext) :
             .getSystemService(android.content.Context.ACCESSIBILITY_SERVICE) as android.view.accessibility.AccessibilityManager
         val enabledServices = accessibilityManager.getEnabledAccessibilityServiceList(AccessibilityServiceInfo.FEEDBACK_ALL_MASK)
         var isEnabled = false
-        if (reactContext.hasActiveCatalystInstance()) {
-            for (service in enabledServices) {
-                if (service.resolveInfo.serviceInfo.packageName == reactApplicationContext.packageName &&
-                    service.resolveInfo.serviceInfo.name == EntryAccessibilityService::class.java.name) {
-                    isEnabled = true
-                    break
-                }
+        android.util.Log.w("EntryModule", "Verificando serviços de acessibilidade habilitados...")
+        for (service in enabledServices) {
+            if (service.resolveInfo.serviceInfo.packageName == reactApplicationContext.packageName &&
+                service.resolveInfo.serviceInfo.name == EntryAccessibilityService::class.java.name) {
+                isEnabled = true
+                break
             }
         }
         promise.resolve(isEnabled)

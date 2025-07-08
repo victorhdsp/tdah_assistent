@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import { NativeEventEmitter, NativeModules } from 'react-native';
 
 const { EntryModule } = NativeModules;
-const EntryEventEmitter = new NativeEventEmitter(EntryModule);
+const EntryEventEmitter = new NativeEventEmitter();
 
 interface AccessibilityEventData {
   eventType: number;
@@ -29,16 +29,19 @@ interface AccessibilityHookResult {
 }
 
 export function useAccessibilityEvents(): AccessibilityHookResult {
+
   const [lastEvent, setLastEvent] = useState<AccessibilityEventData | null>(null);
   const [isServiceEnabled, setIsServiceEnabled] = useState<boolean>(false);
 
   const checkServiceStatus = async () => {
     try {
       const enabled = await EntryModule.isAccessibilityServiceEnabled();
+      console.log("Status do serviço de acessibilidade:", enabled);
       setIsServiceEnabled(enabled);
       return enabled;
     } catch (error) {
       console.error("Erro ao verificar status do serviço de acessibilidade:", error);
+      openSettings();
       return false;
     }
   };
@@ -48,7 +51,9 @@ export function useAccessibilityEvents(): AccessibilityHookResult {
   };
 
   useEffect(() => {
+    console.log("Registrando listener de acessibilidade");
     checkServiceStatus();
+
 
     const subscription = EntryEventEmitter.addListener(
       'AccessibilityEvent',
@@ -58,6 +63,7 @@ export function useAccessibilityEvents(): AccessibilityHookResult {
     );
 
     return () => {
+      console.log("Removendo listener de acessibilidade");
       subscription.remove();
     };
   }, []);

@@ -1,12 +1,14 @@
-package com.tdah_assistent
+package com.anonymous.tdah_assistent
 
 import com.facebook.react.ReactPackage
 import com.facebook.react.bridge.ReactApplicationContext
 import com.facebook.react.bridge.NativeModule
 import com.facebook.react.uimanager.ViewManager
+import com.anonymous.tdah_assistent.EntryModule
 
 class EntryPackage : ReactPackage {
     override fun createNativeModules(reactContext: ReactApplicationContext): List<NativeModule> {
+        android.util.Log.d("EntryPackage", "Creating native modules")
         return listOf(EntryModule(reactContext))
     }
 

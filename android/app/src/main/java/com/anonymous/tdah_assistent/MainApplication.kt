@@ -17,7 +17,7 @@ import expo.modules.ApplicationLifecycleDispatcher
 import expo.modules.ReactNativeHostWrapper
 import java.util.Arrays
 
-import com.tdah_assistent.EntryPackage
+import com.anonymous.tdah_assistent.EntryPackage
 
 class MainApplication : Application(), ReactApplication {
     

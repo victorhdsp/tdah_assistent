@@ -1,3 +1,4 @@
+
 # 🤖 Regras e Contexto para o Gemini CLI no Projeto TDAH Assistent
 
 ## 🧠 Objetivo do Projeto
@@ -20,27 +21,54 @@ O Gemini CLI será utilizado para:
 
 ---
 
-## 📁 Log de Alterações Obrigatório
+Segue o trecho atualizado, substituindo o antigo bloco de “Log de Alterações Obrigatório”, conforme seu pedido para manter o nível de título com `##` e integrando as novas instruções por etapa e log final:
 
-Para **cada contribuição no projeto**, a IA **deve gerar logs** em:
+---
 
-```bash
+## 📁 Log de Alterações por Etapa
+
+Cada contribuição da IA deve gerar **um log para cada etapa** do processo, mesmo que a alteração ainda não esteja finalizada. Isso é essencial para permitir cancelamentos sem perda de histórico.
+
+### 📂 Onde salvar
+
+Todos os logs devem ser salvos no diretório:
+
+```
 /docs/gemini-log/
-````
+```
 
-Cada entrada deve conter:
+### 🧱 Nome do arquivo
 
-* 📄 Nome do arquivo alterado/criado
-* 🔍 O que foi alterado
-* ❓ Por que foi feito (contexto)
-* 📈 Impacto no restante do projeto
-* 🧪 Se for experimental, marcar como instável
+Cada etapa deve ter um nome de arquivo no formato:
 
-Exemplo do nome de arquivo:
+```
+/docs/gemini-log/<YYYY-MM-DD>--<descricao-geral>.md
+```
 
-```bash
+Por exemplo:
+
+```
 /docs/gemini-log/2024-07-08--acessibilidade-bridge-integracao.md
 ```
+
+### 🧾 Conteúdo obrigatório de cada etapa
+
+* 📄 **Arquivos afetados**
+* 🔍 **O que foi alterado**
+* ❓ **Motivo/contexto da alteração**
+* 📈 **Impacto esperado no projeto**
+* 🧪 **Se for experimental**, marcar explicitamente como instável
+
+---
+
+## 🗂️ Log Consolidado (index.md)
+
+Ao término da última etapa, a IA deve criar um arquivo `index.md` no mesmo diretório contendo:
+
+* ✅ Lista das etapas concluídas
+* 🔗 Links para os logs individuais
+* 🧠 Contexto final da funcionalidade
+* 🚧 Riscos técnicos, pendências e observações
 
 ---
 

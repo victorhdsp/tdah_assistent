@@ -4,6 +4,8 @@ import android.accessibilityservice.AccessibilityService
 import android.view.accessibility.AccessibilityEvent
 import com.facebook.react.modules.core.DeviceEventManagerModule
 import com.facebook.react.ReactApplication
+import com.facebook.react.bridge.WritableMap
+import com.facebook.react.bridge.Arguments
 
 class EntryAccessibilityService : AccessibilityService() {
     override fun onServiceConnected() {
@@ -13,14 +15,30 @@ class EntryAccessibilityService : AccessibilityService() {
     
     override fun onAccessibilityEvent(event: AccessibilityEvent?) {
         if (event != null) {
-            val message = "Evento: ${event.eventType} - ${event.text}"
-            
-            // Enviar evento para JS via React Native Bridge
             val reactApp = applicationContext as ReactApplication
             val reactContext = reactApp.reactNativeHost.reactInstanceManager.currentReactContext
 
-            reactContext?.getJSModule(DeviceEventManagerModule.RCTDeviceEventEmitter::class.java)
-                ?.emit("AccessibilityEvent", message)
+            if (reactContext != null) {
+                val params: WritableMap = Arguments.createMap().apply {
+                    putInt("eventType", event.eventType)
+                    putString("eventText", event.text?.toString())
+                    putString("packageName", event.packageName?.toString())
+                    putString("className", event.className?.toString())
+                    putInt("itemCount", event.itemCount)
+                    putInt("currentItemIndex", event.currentItemIndex)
+                    putInt("fromIndex", event.fromIndex)
+                    putInt("toIndex", event.toIndex)
+                    putInt("scrollX", event.scrollX)
+                    putInt("scrollY", event.scrollY)
+                    putBoolean("isChecked", event.isChecked)
+                    putBoolean("isEnabled", event.isEnabled)
+                    putBoolean("isPassword", event.isPassword)
+                    // Adicione mais propriedades do evento conforme necessário
+                }
+
+                reactContext.getJSModule(DeviceEventManagerModule.RCTDeviceEventEmitter::class.java)
+                    ?.emit("AccessibilityEvent", params)
+            }
         }
     }
 

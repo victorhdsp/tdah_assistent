@@ -132,7 +132,8 @@ A IA **NÃO** deve:
 | ------------- | --------------------------------------------------------------------------- | --------------------------------------- |
 | Kotlin Module | `android/app/src/main/java/com/tdah_assistent/EntryAccessibilityService.kt` | Serviço que escuta eventos              |
 | Bridge        | `EntryModule.kt` + `EntryPackage.kt`                                        | Comunicação com JS                      |
-| React Native  | `app/(tabs)/index.tsx`                                                      | Recebe eventos via `DeviceEventEmitter` |
+| React Native  | `app/index.tsx`                                                             | Recebe eventos via `DeviceEventEmitter` |
+| React Native Hook | `native/useAccessibilityEvents.ts`                                          | Hook para consumir eventos de acessibilidade |
 | Configuração  | `AndroidManifest.xml`, `accessibility_service_config.xml`                   | Permissões e metadata                   |
 
 ---

@@ -31,6 +31,21 @@ class EntryModule(reactContext: ReactApplicationContext) :
     }
 
     @ReactMethod
+    fun isAccessibilityServiceEnabled(promise: Promise) {
+        val accessibilityManager = reactApplicationContext.getSystemService(android.content.Context.ACCESSIBILITY_SERVICE) as android.accessibilityservice.AccessibilityManager
+        val enabledServices = accessibilityManager.getEnabledAccessibilityServiceList(AccessibilityServiceInfo.FEEDBACK_ALL_MASK)
+        var isEnabled = false
+        for (service in enabledServices) {
+            if (service.resolveInfo.serviceInfo.packageName == reactApplicationContext.packageName &&
+                service.resolveInfo.serviceInfo.name == EntryAccessibilityService::class.java.name) {
+                isEnabled = true
+                break
+            }
+        }
+        promise.resolve(isEnabled)
+    }
+
+    @ReactMethod
     fun openAccessibilitySettings() {
         val intent = Intent(Settings.ACTION_ACCESSIBILITY_SETTINGS)
         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)

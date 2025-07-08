@@ -37,18 +37,20 @@ Todos os logs devem ser salvos no diretório:
 /docs/gemini-log/
 ```
 
-### 🧱 Nome do arquivo
+### 🧱 Estrutura de Log por Tarefa
 
-Cada etapa deve ter um nome de arquivo no formato:
+Cada tarefa da IA deve ter sua própria pasta dentro de `/docs/gemini-log/`, nomeada com uma descrição geral da tarefa (ex: `refatoracao-template-expo`).
+
+Dentro dessa pasta, cada etapa deve ter um nome de arquivo no formato:
 
 ```
-/docs/gemini-log/<YYYY-MM-DD>--<descricao-geral>.md
+/docs/gemini-log/<descricao-da-tarefa>/step--<numero-da-etapa>.md
 ```
 
 Por exemplo:
 
 ```
-/docs/gemini-log/2024-07-08--acessibilidade-bridge-integracao.md
+/docs/gemini-log/refatoracao-template-expo/step--01.md
 ```
 
 ### 🧾 Conteúdo obrigatório de cada etapa
@@ -63,7 +65,7 @@ Por exemplo:
 
 ## 🗂️ Log Consolidado (index.md)
 
-Ao término da última etapa, a IA deve criar um arquivo `index.md` no mesmo diretório contendo:
+Ao término da última etapa de uma tarefa, a IA deve criar um arquivo `index.md` dentro da pasta da tarefa (ex: `/docs/gemini-log/refatoracao-template-expo/index.md`) contendo:
 
 * ✅ Lista das etapas concluídas
 * 🔗 Links para os logs individuais

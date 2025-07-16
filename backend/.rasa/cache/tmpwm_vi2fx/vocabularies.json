@@ -1,0 +1,47 @@
+{
+  "text": {
+    "me": 12,
+    "lembra": 10,
+    "de": 7,
+    "pagar": 16,
+    "o": 15,
+    "aluguel": 1,
+    "amanhã": 2,
+    "não": 14,
+    "posso": 17,
+    "esquecer": 8,
+    "comprar": 5,
+    "pão": 19,
+    "avisa": 4,
+    "sobre": 20,
+    "a": 0,
+    "consulta": 6,
+    "terça": 21,
+    "feira": 9,
+    "anota": 3,
+    "um": 22,
+    "lembrete": 11,
+    "pra": 18,
+    "mim": 13
+  },
+  "intent": {
+    "criar_lembrete": 0
+  },
+  "response": null,
+  "action_name": {
+    "action_listen": 6,
+    "action_restart": 7,
+    "action_session_start": 9,
+    "action_default_fallback": 4,
+    "action_deactivate_loop": 1,
+    "action_revert_fallback_events": 8,
+    "action_default_ask_affirmation": 2,
+    "action_default_ask_rephrase": 3,
+    "action_two_stage_fallback": 10,
+    "action_unlikely_intent": 11,
+    "action_back": 0,
+    "action_extract_slots": 5
+  },
+  "action_text": null,
+  "intent_response_key": null
+}

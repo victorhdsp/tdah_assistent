@@ -1,0 +1,35 @@
+version: "3.1"
+
+nlu:
+- intent: agendar_compromisso
+  examples: |
+    - [Fazer apresentação](acao) no [centro do Rio](local) às [16h](hora)
+    - Reunião com o time [amanhã](data) às [11h](hora)
+    - Consulta médica dia [24/07](data) às [14:30](hora)
+    - Aulas de yoga [toda terça](data) às [18h](hora)
+    - Encontro semanal de planejamento [segunda-feira](data) às [9h](hora)
+
+- intent: criar_tarefa_sem_data
+  examples: |
+    - Estou preparando um [orçamento](objeto) e te [envio](acao) [até sexta-feira](data)
+    - Preciso [revisar](acao) aquele [relatório](objeto) quando der tempo
+    - Me lembro de [desenhar o diagrama](acao) [antes da reunião](data)
+    - [Comprar](acao) [ração para o cachorro](objeto) [esta semana](data)
+    - [Criar](acao) [post](objeto) para o blog em breve
+    - [Sexta](data) comprei uma caixa pra gente [comemorar](acao)
+
+- intent: associar_gatilho_contextual
+  examples: |
+    - Quando for no [mercado](evento), traz [tomate](objeto)
+    - Se passar na [farmácia](evento), compra meu [remédio](objeto)
+    - Ao [chegar em casa](evento), ligar para a [Maria](objeto)
+    - Se tiver [brócolis](objeto) no [supermercado](evento), compra pra mim
+    - Quando [voltar da academia](evento), me avisa
+
+- intent: agradecimento
+  examples: |
+    - Obrigado
+    - Valeu, amigo
+    - Show, era isso mesmo
+    - Perfeito, obrigado!
+    - Obrigada pela ajuda

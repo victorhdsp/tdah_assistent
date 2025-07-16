@@ -17,6 +17,7 @@ export default function App() {
 
     const parserAcessibilityWhatsappScrapping = new ParserAcessibilityWhatsappScrapping()
     const nodes = parserAcessibilityWhatsappScrapping.execute(lastEvent);
+    cons
 
     const pretty = JSON.stringify(lastEvent, null, 2);
     //console.log('Último evento de acessibilidade:', pretty);

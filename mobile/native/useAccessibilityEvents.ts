@@ -1,25 +1,9 @@
+import { AccessibilityEventData } from '@/scripts/collect_data/EventType';
 import { useEffect, useState } from 'react';
 import { NativeEventEmitter, NativeModules } from 'react-native';
 
 const { EntryModule } = NativeModules;
 const EntryEventEmitter = new NativeEventEmitter();
-
-interface AccessibilityEventData {
-  eventType: number;
-  eventText: string | null;
-  packageName: string | null;
-  className: string | null;
-  itemCount: number;
-  currentItemIndex: number;
-  fromIndex: number;
-  toIndex: number;
-  scrollX: number;
-  scrollY: number;
-  isChecked: boolean;
-  isEnabled: boolean;
-  isPassword: boolean;
-  // Adicione mais propriedades conforme necessário
-}
 
 interface AccessibilityHookResult {
   lastEvent: AccessibilityEventData | null;
@@ -53,7 +37,6 @@ export function useAccessibilityEvents(): AccessibilityHookResult {
   useEffect(() => {
     console.log("Registrando listener de acessibilidade");
     checkServiceStatus();
-
 
     const subscription = EntryEventEmitter.addListener(
       'AccessibilityEvent',

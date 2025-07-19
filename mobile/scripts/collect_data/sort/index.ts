@@ -5,12 +5,26 @@ export class SortChatData {
     private findInsertIndex(oldChat: ChatDataDTO, newChat: ChatDataDTO): number {
         const oldIndex = { start: 0, end: oldChat.content.length - 1 };
         const newIndex = { start: 0, end: newChat.content.length - 1 };
-        let currentIndex = [{ index: 0, value: oldChat.content[0].date }];
 
-        while (oldChat.content[oldIndex.start].date == null) oldIndex.start++;
-        while (newChat.content[newIndex.start].date == null) newIndex.start++;
-        while (oldChat.content[oldIndex.end].date == null) oldIndex.end--;
-        while (newChat.content[newIndex.end].date == null) newIndex.end--;
+        if (oldChat.content.length === 0) {
+            return 0;
+        }
+        if (newChat.content.length === 0) {
+            return oldChat.content.length;
+        }
+        while (oldChat.content[oldIndex.start].date == null && oldIndex.start <= oldChat.content.length) oldIndex.start++;
+        while (newChat.content[newIndex.start].date == null && newIndex.start <= newChat.content.length) newIndex.start++;
+        while (oldChat.content[oldIndex.end].date == null && oldIndex.end >= 0) oldIndex.end--;
+        while (newChat.content[newIndex.end].date == null && newIndex.end >= 0) newIndex.end--;
+
+        if (oldIndex.start > oldIndex.end) {
+            return oldChat.content.length;
+        }
+        if (newIndex.start > newIndex.end) {
+            return 0;
+        }
+
+        let currentIndex = [{ index: oldIndex.start, value: oldChat.content[oldIndex.start].date }];
 
         function compareOldAndNew(oldIndex: number, newIndex: number): number {
             const oldDate = oldChat.content[oldIndex].date;
@@ -110,7 +124,9 @@ export class SortChatData {
         }
     }
 
-    async execute(oldChat: ChatDataDTO, newChat: ChatDataDTO): Promise<ChatDataDTO> {
+    execute(oldChat: ChatDataDTO, newChat: ChatDataDTO): ChatDataDTO {
+        console.log("Sorting chat data...");
+
         if (!oldChat || !newChat) {
             throw new Error("Both oldChat and newChat must be provided.");
         }
@@ -119,8 +135,10 @@ export class SortChatData {
             throw new Error("Chat IDs do not match.");
         }
 
+
         let currentInsertIndex = this.findInsertIndex(oldChat, newChat);
         this.margeData(oldChat, newChat, currentInsertIndex);
+        
         return oldChat;
     }
 }

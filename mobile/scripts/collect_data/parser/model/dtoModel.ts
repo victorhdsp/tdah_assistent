@@ -6,7 +6,7 @@ export interface GenericDataDTO {
     role: DataRole,
     type: TypeData,
     date: string | null,
-    isViewed: boolean | null,
+    isViewed: boolean | null
 }
 
 export interface TextRowDataDTO extends GenericDataDTO {
@@ -19,10 +19,10 @@ export interface MetadataDTO {
     chatId: string,
     contactName: string,
     packageName: string,
+    chunkIds: string[]
 }
 
 export interface ChatDataDTO {
     metadata: MetadataDTO,
-    content: DataToList[],
-    floating?: DataToList[],
+    content: DataToList[]
 }

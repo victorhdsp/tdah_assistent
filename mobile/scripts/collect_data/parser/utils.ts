@@ -21,3 +21,15 @@ export function dateFormat(date: Date): string {
     };
     return date.toLocaleDateString('en-EN', options);
 }
+
+export function createHash(input: string): string {
+    let hash = 5381;
+    for (let i = 0; i < input.length; i++) {
+        hash = (hash * 33) ^ input.charCodeAt(i);
+    }
+    return (hash >>> 0).toString(16);
+}
+
+export function randomUUID(): string {
+    return createHash(Date.now().toString() + Math.random().toString());
+}

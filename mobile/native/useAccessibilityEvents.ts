@@ -41,7 +41,7 @@ export function useAccessibilityEvents(): AccessibilityHookResult {
     const subscription = EntryEventEmitter.addListener(
       'AccessibilityEvent',
       (event: AccessibilityEventData) => {
-        setLastEvent(event);
+        if (event) setLastEvent(event);
       }
     );
 

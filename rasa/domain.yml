@@ -1,16 +1,19 @@
 version: "3.1"
 
 intents:
-  - criar_lembrete
+  - agendar_compromisso
+  - criar_tarefa_sem_data
+  - associar_gatilho_contextual
+  - agradecimento
+  - outros
 
 entities:
-  - data
-  - hora
+  - date
+  - hour
   - local
-  - acao
-  - objeto
-  - evento
-  - prazo
+  - action
+  - object
+  - event
   
 session_config:
   session_expiration_time: 60

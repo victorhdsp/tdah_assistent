@@ -1,16 +1,16 @@
-import crypto from "crypto";
 import type { AccessibilityEventData } from "../EventType";
 import { TextRowData } from "./entity";
 import type { ChatDataDTO, DataToList, MetadataDTO } from "./model/dtoModel";
 import { TypeData } from "./model/enumModel";
-import { dateFormat, findInEventNode } from "./utils";
+import { createHash, dateFormat, findInEventNode } from "./utils";
 
 export class ParserAcessibilityWhatsappScrapping {
     private date: string[] = [];
     private metadata: MetadataDTO | null = null;
 
     private updateDateWithEvent(node: AccessibilityEventData) {
-        const now = new Date(dateFormat(new Date()));
+        const [month, day, year] = dateFormat(new Date()).split('/').map(Number);
+        const now = new Date(year, month - 1, day);
         let resultDate = now;
 
         switch ((node.text || '').toLowerCase()) {
@@ -25,15 +25,14 @@ export class ParserAcessibilityWhatsappScrapping {
             case 'domingo': resultDate.setDate(now.getDate() - now.getDay()); break;
             default: break;
         }
-
+        
         this.date.push(dateFormat(resultDate))
     }
 
     private updateMetadataWithEvent(node: AccessibilityEventData) {
         const contactName = node.text;
         const packageName = node.viewIdResourceName?.split(':')[0];
-        const chatId = crypto.createHash('md5')
-                    .update(`${contactName}-${packageName}`).digest('hex');
+        const chatId = createHash(`${contactName}-${packageName}`);
 
         if (!contactName || !packageName || !chatId) {
             throw new Error('Invalid metadata from event node');
@@ -43,6 +42,7 @@ export class ParserAcessibilityWhatsappScrapping {
             contactName: contactName,
             packageName: packageName,
             chatId: chatId,
+            chunkIds: []
         }
     }
 

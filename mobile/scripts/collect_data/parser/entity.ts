@@ -1,9 +1,8 @@
 
-import crypto from "crypto";
 import type { AccessibilityEventData } from "../EventType";
 import type { GenericDataDTO, TextRowDataDTO } from "./model/dtoModel";
 import { DataRole, TypeData, TypeGenericViewIdData, TypeTextRowViewIdData } from "./model/enumModel";
-import { findInEventNode } from "./utils";
+import { findInEventNode, createHash, randomUUID } from './utils';
 
 export class GenericData implements GenericDataDTO {
     constructor(
@@ -32,7 +31,9 @@ export class GenericData implements GenericDataDTO {
     }
 
     getTimestamp(): number {
-        return new Date(`${this.date} ${this.hour}`).getTime();
+        const [month, day, year] = (this.date || '01/01/1970').split('/').map(Number);
+        const [hour, minute] = this.hour.split(':').map(Number);
+        return new Date(year, month -1, day, hour, minute).getTime();
     }
 
     setDate(date: string | null) {
@@ -58,10 +59,10 @@ export class TextRowData extends GenericData implements TextRowDataDTO {
         date: string | null = null,
         isViewed: boolean | null = null,
         role: DataRole = DataRole.CONTACT,
-        id: string = crypto.randomUUID(),
+        id: string = randomUUID(),
     ) {
         role = isViewed ? DataRole.USER : DataRole.CONTACT;
-        id = crypto.createHash('md5').update(`${hour}-${role}-${text}`).digest('hex');
+        id = createHash(`${hour}-${role}-${text}`);
 
         super(id, hour, role, TypeData.TEXT_ROW, date, isViewed);
     }

@@ -3,28 +3,52 @@ version: "3.1"
 nlu:
 - intent: agendar_compromisso
   examples: |
-    - [Fazer apresentação](acao) no [centro do Rio](local) às [16h](hora)
-    - Reunião com o time [amanhã](data) às [11h](hora)
-    - Consulta médica dia [24/07](data) às [14:30](hora)
-    - Aulas de yoga [toda terça](data) às [18h](hora)
-    - Encontro semanal de planejamento [segunda-feira](data) às [9h](hora)
+    - [Fazer](action) [apresentação](object) no [centro do Rio](local) às [16h](hour)
+    - [Reunião](action) com o [time](object) [amanhã](date) às [11h](hour)
+    - [Consulta médica](action) [dia 24/07](date) às [14:30](hour)
+    - [Aulas de yoga](action) [toda terça](date) às [18h](hour)
+    - [Encontro semanal](action) de planejamento [segunda-feira](date) às [9h](hour)
+    - [Reunião](action) com o [João](object) [dia 20](date) às [14h](hour)
+    - [Marcar dentista](action) [dia 21](date) às [10h](hour) 
+    - [reunião](action) com [cliente](object) às [15h](hour)
+    - [Dia 22](date) às [13h](hour) [terapia](action)
+    - [call](action) c [time](object) [25](date) [14h](hour)
+    - [Remarcar](action) [reunião](object) para [dia 24](date) ou 25 às [16h](hour)
+    - [Agendar](action) [teste de direção](object) para [sexta-feira](date) [9h](hour) no [DETRAN](local)
+    - [Visita técnica](action) [dia 15/08](date) às [10:30](hour) na [fábrica](local)
+    - [Reunião de pais](action) [próxima quarta](date) [14h](hour) na [escola](local)
+    - [Entrevista](action) com [recrutadora](object) [após amanhã](date) [11h](hour)
+    - [Apresentação comercial](action) [no shopping](local) [15h](hour) [28/07](date)
+    - eu vou na [feira de são cristovão](local) [hoje](date), é [aniversário de uma amg](event), ela deixou chamar geral, ses tão afim de ir?
+    - Se a gente for pra um lugar mais perto\nTipo [barkana](local)\nLa tem dose dupla\nE [karaoke](event)\nDaì acaba tipo [23h](hora)\n[Meia noitw](hora)
 
 - intent: criar_tarefa_sem_data
   examples: |
-    - Estou preparando um [orçamento](objeto) e te [envio](acao) [até sexta-feira](data)
-    - Preciso [revisar](acao) aquele [relatório](objeto) quando der tempo
-    - Me lembro de [desenhar o diagrama](acao) [antes da reunião](data)
-    - [Comprar](acao) [ração para o cachorro](objeto) [esta semana](data)
-    - [Criar](acao) [post](objeto) para o blog em breve
-    - [Sexta](data) comprei uma caixa pra gente [comemorar](acao)
+    - Estou preparando um [orçamento](object) e te [envio](action) [até sexta-feira](date)
+    - Preciso [revisar](action) aquele [relatório](object) quando der tempo
+    - Me lembro de [desenhar o diagrama](action) [antes da reunião](date)
+    - [Comprar](action) [ração para o cachorro](object) [esta semana](date)
+    - [Criar](action) [post](object) para o blog em breve
+    - [Sexta](date) comprei uma caixa pra gente [comemorar](action)
+    - [Falar](action) com a [terapeuta](object) [depois](date)
+    - [Traduzir](action) o [contrato](object) [até quarta](date)
+    - [Formatar](action) [slides](object) [antes do almoço](date)
+    - [Pesquisar](action) [voos para SP](object) [nesse mês](date)
+    - [Enviar](action) [documentos](object) [até o fim do dia](date)
+    - [Testar](action) o [aplicativo novo](object) [quando possível](date)
 
 - intent: associar_gatilho_contextual
   examples: |
-    - Quando for no [mercado](evento), traz [tomate](objeto)
-    - Se passar na [farmácia](evento), compra meu [remédio](objeto)
-    - Ao [chegar em casa](evento), ligar para a [Maria](objeto)
-    - Se tiver [brócolis](objeto) no [supermercado](evento), compra pra mim
-    - Quando [voltar da academia](evento), me avisa
+    - Quando for no [mercado](event), traz [tomate](object)
+    - Se passar na [farmácia](event), compra meu [remédio](object)
+    - Ao [chegar em casa](event), ligar para a [Maria](object)
+    - Se tiver [brócolis](object) no [supermercado](event), compra pra mim
+    - Quando [voltar da academia](event), me avisa
+    - Ao [terminar a reunião](event), [enviar e-mail](action) para [TI](object)
+    - Se vir [café em promoção](object) no [atacadão](event), compra 3 pacotes
+    - Quando [sair do trabalho](event), [pegar encomenda](action) na [farmacia](local)
+    - Ao [passar na livraria](event), ver [livro de Python](object)
+    - Se [chover amanhã](event), [cancelar](action) o [piquenique](object)
 
 - intent: agradecimento
   examples: |
@@ -33,3 +57,41 @@ nlu:
     - Show, era isso mesmo
     - Perfeito, obrigado!
     - Obrigada pela ajuda
+    - Top demais!
+    - Brigadão!
+    - Salvou minha vida
+    - Maravilha, obrigada!
+    - Valeu pelo help
+
+- intent: outros
+  examples: |
+    - Sei lá
+    - Doideira
+    - Caramba
+    - Hmmmm
+    - Aff...
+    - Nossa senhora
+    - Puts vida
+    - Eita
+    - Hã?
+    - Faaala Vitinho
+    - Tudo jóia por aí
+    - Perfeitoo
+    - se eu quiser aproveitar nessa validação adicionar mais um e-mail vc faz por este mesmo valor
+    - acrescenta
+    - primeiramente feliz aniversário
+    - posso levar 4-5 cabeças vou ver se eles querem ir
+    - conforme for se não puder
+    - dps tento pelo menos passar lá para dar um oi vai ser onde mesmo
+    - tô descendo Commitar
+    - Tem sugestão
+    - Mano, vai pra Lapa, eu tô tranquilo vejo vcs no domingo
+    - Por aì
+    - 👴🏻 <- pai oh
+    - nada fechado
+    - Eu sei q vc ta tranquilo
+    - É isso q to tentando solucionar
+    - nada fechado
+    - https://vm.tiktok.com/ZMStpn3Pm/
+    - Tô em casa tropa
+    - Setlist: \n\nSweet dreams\nHeart-shaped box \nSem futuro\nCities in dust\nParanóia\nMan in the box\nEspanque um nazipardo\nVoz do racismo\nBring me to life\nNada pelo que lutar\nNa sua estante

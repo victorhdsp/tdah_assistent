@@ -7,10 +7,22 @@ const PORT = 1234;
 const DUMP_DIR = path.resolve(__dirname, '__test__/dump');
 
 if (!fs.existsSync(DUMP_DIR)) {
-  fs.mkdirSync(DUMP_DIR);
+  fs.mkdirSync(DUMP_DIR, { recursive: true });
 }
 
 const server = http.createServer((req, res) => {
+  let directory = DUMP_DIR;
+
+  if (req.url && req.url.includes('/before-extract')) {
+    directory = path.join(DUMP_DIR, 'before-extract');
+  } else if (req.url && req.url.includes('/after-extract')) {
+    directory = path.join(DUMP_DIR, 'after-extract');
+  }
+
+  if (!fs.existsSync(directory)) {
+    fs.mkdirSync(directory, { recursive: true });
+  }
+
   if (req.method === 'POST') {
     let body = '';
 
@@ -21,7 +33,7 @@ const server = http.createServer((req, res) => {
     req.on('end', () => {
       try {
         const timestamp = Date.now();
-        const filePath = path.join(DUMP_DIR, `${timestamp}.json`);
+        const filePath = path.join(directory, `${timestamp}.json`);
         fs.writeFileSync(filePath, body);
 
         console.log(`\n📦 JSON recebido e salvo em ${filePath}`);

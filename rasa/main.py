@@ -5,7 +5,7 @@ import glob
 
 def main():
     # encontra o último modelo treinado
-    modelos = glob.glob("models/nlu-*.tar.gz")
+    modelos = glob.glob("./models/nlu-*.tar.gz")
     if not modelos:
         print("❌ Nenhum modelo encontrado em models/")
         sys.exit(1)

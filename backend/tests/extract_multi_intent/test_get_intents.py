@@ -1,10 +1,10 @@
-# tests/test_extract_multi_intent.py
+# tests/test_extract_intent.py
 
 import pytest
 from rich import print_json
-from src.domain.extract_multi_intent.models.response_dto import NLUGenericDTO
-from src.domain.extract_multi_intent.main import ExtractMultiIntentUseCase
-from src.domain.extract_multi_intent.dependences import nlu_service
+from src.domain.extract_intent.models.response_dto import NLUGenericDTO
+from src.domain.extract_intent.main import ExtractMultiIntentUseCase
+from src.domain.extract_intent.dependences import nlu_service
 
 @pytest.fixture
 def use_case():

@@ -1,5 +1,5 @@
 from fastapi import HTTPException
-from src.domain.extract_multi_intent.models.nlu_dto import NLUResponseDTO
+from src.domain.analize_by_chat.extract_intent.models.nlu_dto import NLUResponseDTO
 import requests
 
 class NLUService:

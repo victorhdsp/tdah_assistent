@@ -1,9 +1,6 @@
 from fastapi import APIRouter
-from rich import print_json
-from src.domain.extract_multi_intent.models.request_dto import RequestBodyExtractMultiIntentDTO
-from src.domain.extract_multi_intent.dependences import extractMultiIntentUseCase
-import requests
-
+from src.domain.analize_by_chat.extract_intent.models.request_dto import RequestBodyExtractIntentDTO
+from src.lifespan import app_dependencies
 
 route = APIRouter()
 
@@ -11,12 +8,8 @@ route = APIRouter()
 def health_check():
     return {"status": "ok"}
 
-@route.post("/extract-multi-intent")
-def extract_multi_intent(body: RequestBodyExtractMultiIntentDTO):
-    result = extractMultiIntentUseCase.execute(chat_data=body.chat_data)
-    
-    requests.post(
-        f"http://192.168.1.160:1234/after-extract'",
-        json=result.json()
-    )
-    return result
+@route.post("/analise-by-chat")
+def extract_intent(body: RequestBodyExtractIntentDTO):
+    app_dependencies.chat_analysis_queue.producer(chat_data=body.chat_data)
+    print(f"Received chat data: {body.chat_data}")
+    return {"status": "ok"}

@@ -1,10 +1,7 @@
-from enum import Enum
 from pydantic import BaseModel
-from typing import List, Literal, Optional
+from typing import List, Literal,TypeAlias
 
-class DataRole(Enum):
-    USER = 'user'
-    CONTACT = 'contact'
+DataRole: TypeAlias = Literal['user', 'contact']
 
 class TextRowDataDTO(BaseModel):
     id: str
@@ -20,6 +17,6 @@ class ChatDataDTO(BaseModel):
     metadata: MetadataDTO
     content: List[TextRowDataDTO]
 
-class RequestBodyExtractMultiIntentDTO(BaseModel):
+class RequestBodyExtractIntentDTO(BaseModel):
     chat_data: ChatDataDTO
 

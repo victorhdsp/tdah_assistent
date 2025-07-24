@@ -1,8 +1,8 @@
-# tests/test_extract_multi_intent.py
+# tests/test_extract_intent.py
 
 import pytest
-from src.domain.extract_multi_intent.main import ExtractMultiIntentUseCase
-from src.domain.extract_multi_intent.dependences import nlu_service
+from src.domain.extract_intent.main import ExtractMultiIntentUseCase
+from src.domain.extract_intent.dependences import nlu_service
 
 @pytest.fixture
 def use_case():

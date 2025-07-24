@@ -1,4 +1,4 @@
-from src.domain.extract_multi_intent.models.nlu_dto import NLUIntentDTO
+from src.domain.extract_intent.models.nlu_dto import NLUIntentDTO
 
 class NLUServiceMock:
     def execute(self, text: str) -> NLUIntentDTO:

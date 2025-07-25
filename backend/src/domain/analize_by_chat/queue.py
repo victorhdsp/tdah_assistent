@@ -5,7 +5,7 @@ import time
 from typing import List
 from src.domain.analize_by_chat.controller import ChatAnalysisController
 from src.shared.services.queue.interface import MessageQueueInterface
-from src.domain.analize_by_chat.extract_intent.models.request_dto import ChatDataDTO
+from src.domain.analize_by_chat.models.request_dto import ChatDataDTO
 
 logger = logging.getLogger("ChatAnalysisQueue")
 
@@ -45,7 +45,7 @@ class ChatAnalysisQueue:
             self._workers.append(worker)
         logger.info(f"Initialized {num_threads} worker threads for chat analysis queue.")
 
-    def _worker_loop(self) -> None:
+    async def _worker_loop(self) -> None:
         """
         Loop de trabalho que consome mensagens da fila e processa os dados de chat.
         """
@@ -57,7 +57,7 @@ class ChatAnalysisQueue:
                     continue
                 try:
                     logger.info(f"Processing chat data: {item}")
-                    # self._chat_analysis_controller.handle_chat_data(item)
+                    await self._chat_analysis_controller.handle_chat_data(item)
                 except Exception as e:
                     logger.error(f"Error processing item: {e}")
                 finally:

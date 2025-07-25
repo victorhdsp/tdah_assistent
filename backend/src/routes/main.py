@@ -1,5 +1,5 @@
 from fastapi import APIRouter
-from src.domain.analize_by_chat.extract_intent.models.request_dto import RequestBodyExtractIntentDTO
+from src.domain.analize_by_chat.models.request_dto import RequestBodyExtractIntentDTO
 from src.lifespan import app_dependencies
 
 route = APIRouter()

@@ -1,7 +1,6 @@
 
 from typing import List, get_args
 from fastapi import HTTPException
-from sqlalchemy import null
 from src.domain.analize_by_chat.models.event_dto import EventDTO
 from src.domain.analize_by_chat.models.nlu_dto import NLUEntityDTO
 from src.domain.analize_by_chat.services.nlu_service import NLUService

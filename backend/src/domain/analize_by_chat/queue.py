@@ -1,3 +1,4 @@
+import asyncio
 import logging
 from socket import timeout
 import threading
@@ -35,15 +36,25 @@ class ChatAnalysisQueue:
         
         self._workers: List[threading.Thread] = []
 
+        self._events_loop = [asyncio.new_event_loop() for _ in range(num_threads)]
+
         for i in range(num_threads):
             worker = threading.Thread(
-                target=self._worker_loop,
+                target=self._run_worker_loop,
+                args=(self._events_loop[i],),
                 name=f"ChatAnalysisWorker-{i+1}",
                 daemon=True
             )
             worker.start()
             self._workers.append(worker)
         logger.info(f"Initialized {num_threads} worker threads for chat analysis queue.")
+
+    def _run_worker_loop(self, loop: asyncio.AbstractEventLoop) -> None:
+        """
+        Método para executar o loop de trabalho em uma thread separada.
+        """
+        asyncio.set_event_loop(loop)
+        loop.run_until_complete(self._worker_loop())
 
     async def _worker_loop(self) -> None:
         """
@@ -52,7 +63,8 @@ class ChatAnalysisQueue:
         while not self._thread_shutdown_event.is_set():
             try:
                 time.sleep(0.1)
-                item = self._queue_service.get(timeout=self._thread_shutdown_timeout)
+                logger.info("Waiting for chat data in queue...")
+                item = await self._queue_service.get(timeout=self._thread_shutdown_timeout)
                 if item is None:
                     continue
                 try:
@@ -61,26 +73,26 @@ class ChatAnalysisQueue:
                 except Exception as e:
                     logger.error(f"Error processing item: {e}")
                 finally:
-                    self._queue_service.task_done()
+                    await self._queue_service.task_done()
                     logger.info("Processed chat data from queue.")
             except Exception as e:
                 logger.error(f"Error in worker loop: {e}")
 
-    def producer(self, chat_data) -> None:
+    async def producer(self, chat_data) -> None:
         """
         Método para enfileirar dados de chat na fila.
         """
         if not isinstance(chat_data, ChatDataDTO):
             raise TypeError("chat_data must be an instance of ChatDataDTO")
         logger.info(f"Enqueuing chat data: {chat_data}")
-        self._queue_service.put(chat_data)
+        await self._queue_service.put(chat_data)
 
-    def shutdown(self) -> None:
+    async def shutdown(self) -> None:
         self._thread_shutdown_event.set()
         logger.info("Shutting down chat analysis queue workers.")
 
         for worker in self._workers:
             worker.join()
         logger.info("All chat analysis queue workers have been shut down.")
-        self._queue_service.close()
+        await self._queue_service.close()
         logger.info("All chat analysis queue workers have been shut down.")

@@ -1,6 +1,6 @@
 from langchain.output_parsers import BaseOutputParser
 
-class BoolOutputParser(BaseOutputParser[bool]):
+class BooleanOutputParser(BaseOutputParser[bool]):
     def parse(self, text: str) -> bool:
         t = text.strip().lower()
         if t in {"true", "verdadeiro", "sim", "yes"}:

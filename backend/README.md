@@ -102,11 +102,15 @@ graph TD
     faketrue --> |se necessário| agent
 ```
 
+## Agent - MCP
+
+O agente precisa receber um intent e a partir dela acessar a API do whatsapp, consumir a conversa com aquele usuário específico e verificar as informações necessárias para criar um agendamento no google calendar.
+
 ## Logica
 
 1. Informação chega na API *
 2. Ela vai para uma fila. *
 3. Vai ser direcionada para o NLU e salva em um banco de dados.*
-4. Caso o retorno do NLU seja uma intensão usada então vai para o RAG.
-5. O RAG vai buscar as ultimas mensagens dessa conversa e identificar se não é um alarme falso como um planejamento por exemplo.
+4. Caso o retorno do NLU seja uma intensão usada então vai para o RAG.*
+5. O RAG vai buscar as ultimas mensagens dessa conversa e identificar se não é um alarme falso como um planejamento por exemplo.*
 6. O Agente vai pegar essa informação olhar a conversa pela API do whatsapp e criar um evento no google calendar.

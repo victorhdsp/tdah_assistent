@@ -9,7 +9,6 @@ def health_check():
     return {"status": "ok"}
 
 @route.post("/analise-by-chat")
-def extract_intent(body: RequestBodyExtractIntentDTO):
-    app_dependencies.chat_analysis_queue.producer(chat_data=body.chat_data)
-    print(f"Received chat data: {body.chat_data}")
+async def extract_intent(body: RequestBodyExtractIntentDTO):
+    await app_dependencies.chat_analysis_queue.producer(chat_data=body.chat_data)
     return {"status": "ok"}

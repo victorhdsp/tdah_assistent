@@ -16,5 +16,5 @@ class EventRepository():
         self.database.append(event)
 
     def get_events(self) -> List[EventDTO]:
-        """Obtém ultimos 3 eventos de chat no repositório."""
-        return self.database[-3:] if len(self.database) >= 3 else self.database
+        """Obtém ultimos 7 eventos de chat no repositório."""
+        return self.database[-7:] if len(self.database) >= 7 else self.database

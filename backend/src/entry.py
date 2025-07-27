@@ -9,9 +9,9 @@ async def lifespan(app: FastAPI):
     Context manager to handle the lifespan of the application.
     Yields control to the application startup and shutdown.
     """
-    app_dependencies.startup()
+    await app_dependencies.startup()
     yield
-    app_dependencies.shutdown()
+    await app_dependencies.shutdown()
 
 class CreateApp:
     def __init__(self):

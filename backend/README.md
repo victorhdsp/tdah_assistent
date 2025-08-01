@@ -106,6 +106,12 @@ graph TD
 
 O agente precisa receber um intent e a partir dela acessar a API do whatsapp, consumir a conversa com aquele usuário específico e verificar as informações necessárias para criar um agendamento no google calendar.
 
+Para encontrar os dados necessários para criar o agendamento, buscar todos os contatos do usuários na API do whatsapp, então fazer a comparação para indentificar o numero de telefone, com o numero de telefone vou buscar as ultimas conversas com este usuário.
+
+- Consigo identificar o nome do usuário através dos metadados guardados na intent.
+
+Com a conversa em mãos, então vou olhar a intensão para identificar qual o tipo de agendamento para saber qual tipo de informação buscar e então cria um agendamento no sistema, via google calendar.
+
 ## Logica
 
 1. Informação chega na API *

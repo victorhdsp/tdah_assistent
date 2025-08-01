@@ -21,6 +21,7 @@ nlu:
     - [Apresentação comercial](action) [no shopping](local) [15h](hour) [28/07](date)
     - eu vou na [feira de são cristovão](local) [hoje](date), é [aniversário de uma amg](event), ela deixou chamar geral, ses tão afim de ir?
     - Se a gente for pra um lugar mais perto\nTipo [barkana](local)\nLa tem dose dupla\nE [karaoke](event)\nDaì acaba tipo [23h](hora)\n[Meia noitw](hora)
+    - Podemos sim, está marcado [amanhã](date) [12h](hour) então
 
 - intent: criar_tarefa_sem_data
   examples: |
@@ -36,6 +37,7 @@ nlu:
     - [Pesquisar](action) [voos para SP](object) [nesse mês](date)
     - [Enviar](action) [documentos](object) [até o fim do dia](date)
     - [Testar](action) o [aplicativo novo](object) [quando possível](date)
+    - remedio de maya
 
 - intent: associar_gatilho_contextual
   examples: |
@@ -62,6 +64,9 @@ nlu:
     - Salvou minha vida
     - Maravilha, obrigada!
     - Valeu pelo help
+    - Obrigado RB M\u00f3veis, voc\u00ea terminou de pagar o valor referente ao projeto de Mariana Abra\u00e3o.
+    - poha brigadão viado, qualquer coisa falo cntg sim e precisando de alguma coisa pode falar comigo tbm
+    - Olá, Grazi! Bom dia, demorei um pouco a responder porque estava pensando a respeito.\\n\\nAgradeço novamente pela oportunidade e pelos detalhes! Analisei os requisitos e vejo um alinhamento direto com minhas experi\u00eancias mais recentes em IA Generativa.\\n\\nEmbora minha trajetória seja focada em engenharia de software aplicada a IA, as tecnologias que vocês buscam é LangChain, RAG e Python para GenAI que é exatamente meu principal campo de atuação e estudo.\\n\\nMinha pretensão salarial para o modelo CLT é de R$ 7.000,00.\\n\\nEstou confiante de que posso contribuir rapidamente com a equipe no desenvolvimento de soluções com LLMs e estou aberto a propostas. Fico a sua disposição!
 
 - intent: outros
   examples: |
@@ -95,3 +100,27 @@ nlu:
     - https://vm.tiktok.com/ZMStpn3Pm/
     - Tô em casa tropa
     - Setlist: \n\nSweet dreams\nHeart-shaped box \nSem futuro\nCities in dust\nParanóia\nMan in the box\nEspanque um nazipardo\nVoz do racismo\nBring me to life\nNada pelo que lutar\nNa sua estante
+    - CONFIG_SESSION_PHONE_VERSION=2.3000.1025062854
+    - sim, da outra vez funcionava o qrcode, dessa vez n\u00e3o ta indo, mas a instala\u00e7\u00e3o antes foi com base no repo deles usando as mesmas configs, dessa to fazendo com base no docker-file, mas eu que instalei o redis, eu que instalei o postgres e to add os envs, deve estar faltando alguma coisa
+    - bom dia mano, P\u00f4 consegui fazer o lance do mercadopago, a integra\u00e7\u00e3o \u00e9 razoavelmente tranquila de fazer
+    - eu j\u00e1 resolvi a parada do redis, da para colocar o nome do container tbm, q ele pega o localhost de l\u00e13
+    - esse erro tava acontecendo e era com rela\u00e7\u00e3o a versao
+    - Esse ultimo eu mudei, esse aviso \u00e9 para voc\u00ea e n\u00e3o para o fornecedor
+    - Email de dev:\\njucareformasdev@gmail.com\\nJucaReformasDev!123\\n\\nDemais senhas:\\nJucaReformasDev@123\\n* Hostinger\\n* Github
+    - 2067
+    - ela deve estar dirigindo
+    - Achei q era 2036 e n\u00e3o t\u00e1 indo
+    - pro cliente falei que ta na cloud kkkkkkkkk
+    - pra medir produtividade
+    - cria um pra fuder trabalhador
+    - Ah, tu que ta na pira de pegar freela, se liga
+    - rpa tem muita mercado
+    - Me passaram esses dias, não conhecia não, mas ele deixa tu usar a API do whatsapp 0800
+    - para de forçar isso
+    - até chegar no lider técnico
+    - fiz os bglh, cheguei na entrevista, mlk 1 passo é só passar pelo RH, caralho eu sei o bglh
+    - não deram resposta ainda não, mas pelo sentimento na entrevista cai de otário
+    - faz, foi forte tá, dps pelo esporte vou fazer um agente que faz aquele processo e compartilho contigo, preciso aprender a fazer deep search com agente em código
+    - no pior dos casos tenho um prá pagamento para Saas pronto kkk
+    - ah ta, a regra não é do mercado pago, mas da loja, ela não deixa guardar dados do usuário e você precisaria guardar para fazer o pagamento, é isso?
+    - qualquer duvida pode falar cmg sobre mobile

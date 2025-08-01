@@ -1,4 +1,5 @@
 from fastapi import APIRouter
+from src.domain.analize_by_chat.agents.whatsapp_resarcher_agent import WhatsappFindMessagesParams, search_whatsapp_contact_number, search_whatsapp_messages
 from src.domain.analize_by_chat.models.request_dto import RequestBodyExtractIntentDTO
 from src.lifespan import app_dependencies
 

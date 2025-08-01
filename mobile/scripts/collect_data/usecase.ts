@@ -30,7 +30,7 @@ export class CollectDataUseCase {
         }, null, 2);
 
         console.log('Sending data to backend:', body);
-        fetch('http://192.168.1.160:8000/extract-multi-intent', {
+        fetch('http://192.168.1.160:8000/analise-by-chat', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: body

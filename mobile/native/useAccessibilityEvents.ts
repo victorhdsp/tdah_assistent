@@ -1,4 +1,4 @@
-import { AccessibilityEventData } from '@/scripts/collect_data/EventType';
+import { AccessibilityEventData } from '@/src/scripts/collect_data/EventType';
 import { useEffect, useState } from 'react';
 import { NativeEventEmitter, NativeModules } from 'react-native';
 

@@ -12,14 +12,7 @@ if (!fs.existsSync(DUMP_DIR)) {
 
 const server = http.createServer((req, res) => {
   let directory = DUMP_DIR;
-
-  if (req.url && req.url.includes('/before-extract')) {
-    directory = path.join(DUMP_DIR, 'before-extract');
-  } else if (req.url && req.url.includes('/after-extract')) {
-    directory = path.join(DUMP_DIR, 'after-extract');
-  } else if (req.url && req.url.includes('/whatsapp-researcher-agent')) {
-    directory = path.join(DUMP_DIR, 'whatsapp-researcher-agent');
-  } 
+  directory = path.join(DUMP_DIR, req.url.split('/').reverse()[0]);
 
   if (!fs.existsSync(directory)) {
     fs.mkdirSync(directory, { recursive: true });

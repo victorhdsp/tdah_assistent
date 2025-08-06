@@ -42,3 +42,5 @@ app-example
 
 */**/token.json
 */**/credentials.json
+
+*/**/*.onnx

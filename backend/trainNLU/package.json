@@ -1,0 +1,23 @@
+{
+  "name": "trainnlu",
+  "module": "index.ts",
+  "type": "module",
+  "private": true,
+  "scripts": {
+    "build": "bun build index.ts --outdir dist --target node",
+    "start": "bun run dist/index.js",
+    "clean": "rm -rf dist"
+  },
+  "devDependencies": {
+    "@types/bun": "latest",
+    "@types/md5": "^2.3.5"
+  },
+  "peerDependencies": {
+    "typescript": "^5"
+  },
+  "dependencies": {
+    "md5": "^2.3.0",
+    "node-nlp": "^5.0.0-alpha.5",
+    "node-nlp-rn": "^3.5.2"
+  }
+}

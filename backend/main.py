@@ -1,7 +1,6 @@
-from src.entry import CreateApp
-import uvicorn
+def main():
+    print("Hello from new-backend!")
 
-app = CreateApp().execute()
 
 if __name__ == "__main__":
-    uvicorn.run("main:app", host="0.0.0.0", port=8000, reload=True)
+    main()

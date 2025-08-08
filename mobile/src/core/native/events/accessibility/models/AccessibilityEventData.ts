@@ -16,5 +16,4 @@ export interface AccessibilityEventData {
   children: AccessibilityEventData[];
   text: string | null;
   contentDescription: string | null;
-  // Adicione mais propriedades conforme necessário
 }

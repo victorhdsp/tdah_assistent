@@ -1,6 +1,7 @@
 import { ChatEventDTO } from "@/src/features/chat/models/chatEventDTO";
 import { ChatEventEntity } from "@/src/features/chat/models/chatEventEntity";
 import { IChatMessagesRepository } from "@/src/features/chat/repositories/chatMessagesRepository";
+import axios from "axios";
 
 const db: Record<string, ChatEventDTO> = {};
 
@@ -45,11 +46,10 @@ export class ChatMessagesRepository implements IChatMessagesRepository {
         for (const key in printDB) {
             printDB[key].vector = undefined; // Hide vectors for logging
         }
-        
-        fetch('http://192.168.1.160:1234/message-db', {
-            method: 'POST',
+
+        axios.post('http://192.168.1.160:1234/message-db', {
             headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify(printDB),
+            data: JSON.stringify(printDB),
         });
     }
 }

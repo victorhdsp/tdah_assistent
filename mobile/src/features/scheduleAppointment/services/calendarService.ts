@@ -14,9 +14,11 @@ export class CalendarService {
 
     async createEvent(dto: AppointmentDTO): Promise<AppointmentDTO> {
         if (!this.isInitialized) {
+            console.warn("CalendarService not initialized. Initializing now...");
             await this.init();
         }
 
+        console.log("Creating calendar event:", dto);
         const recurrenceMap: Record<string, 'daily' | 'weekly' | 'monthly' | 'yearly'> = {
             'RRULE:FREQ=DAILY': 'daily',
             'RRULE:FREQ=WEEKLY': 'weekly',

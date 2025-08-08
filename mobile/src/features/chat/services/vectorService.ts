@@ -1,6 +1,5 @@
 import { ChatEventDTO, ChatEventDTOInSimilarity } from "../models/chatEventDTO";
-import { LocalEmbeddingService } from "../../scheduleAppointment/services/localEmbeddingService";
-import { BackendEmbeddingService } from '../../scheduleAppointment/services/backendEmbeddingService';
+import { BackendEmbeddingService, LocalEmbeddingService } from "../../scheduleAppointment/services/EmbeddingService";
 
 export class VectorService {
     constructor(
@@ -8,7 +7,7 @@ export class VectorService {
         private backendEmbeddingService: BackendEmbeddingService,
     ) {}
 
-    async generateEmbedding(text: string): Promise<Float32Array> {
+    async generateEmbedding(text: string): Promise<Float32Array | null> {
         if (!text || text.trim() === "") {
             throw new Error("Text cannot be empty for embedding generation.");
         }
@@ -17,8 +16,8 @@ export class VectorService {
             return await this.localEmbeddingService.generateEmbedding(text);
         }
 
-        console.log("Using backend service for embedding generation.", text);
-        return new Float32Array(); //await this.backendEmbeddingService.generateEmbedding(text);
+        console.warn("Using backend service for embedding generation.");
+        return await this.backendEmbeddingService.generateEmbedding(text);
     }
 
     async findSimilarEmbeddings(

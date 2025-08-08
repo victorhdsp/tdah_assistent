@@ -5,19 +5,14 @@ import { BruteChatEventListener } from "@/src/features/chat/bruteChatEventListen
 import { IntentSelectorUseCase } from '../features/chat/intentSelectorUsecase';
 import { BackendGateway } from "../infra/gateways/backendGateway";
 import { CreateNewAppointmentUseCase } from "../features/scheduleAppointment/createNewAppointmentUsecase";
-
-// fetch('http://192.168.1.160:1234/new-processed-chat-event', {
-//      method: 'POST',
-//      headers: { 'Content-Type': 'application/json' },
-//      body: JSON.stringify(chatEvent),
-//  });
+import { EventExecutionQueue } from './EventExecutionQueue';
 
 export const appEventName = {
     NewBruteChatAccessibilityEvent: 'NewBruteChatAccessibilityEvent',
     NewProcessedChatEvent: 'NewProcessedChatEvent',
     ScheduleAppointmentIntent: 'ScheduleAppointmentIntent',
     CreateTaskWithoutDateIntent: 'CreateTaskWithoutDateIntent',
-    AssociateContextTriggerIntent: 'AssociateContextTriggerIntent'
+    AssociateContextTriggerIntent: 'AssociateContextTriggerIntent',
 };
 
 export class AppEventHandlers {
@@ -26,7 +21,8 @@ export class AppEventHandlers {
         private bruteChatEventService: BruteChatEventListener,
         private intentSelectorUseCase: IntentSelectorUseCase,
         private backendGateway: BackendGateway,
-        private createNewAppointmentUsecase: CreateNewAppointmentUseCase
+        private createNewAppointmentUsecase: CreateNewAppointmentUseCase,
+        private eventExecutionQueue: EventExecutionQueue
     ) {}
     
     async register() {
@@ -46,7 +42,9 @@ export class AppEventHandlers {
                return;
             }
             
-            this.bruteChatEventService.fromAccessibility(event);
+            this.eventExecutionQueue.enqueue({
+                fn: () => this.bruteChatEventService.fromAccessibility(event)
+            });
         } catch (error) {
             console.error("Error processing brute chat accessibility event:", error);
         }
@@ -54,18 +52,17 @@ export class AppEventHandlers {
 
     async handleNewProcessedChatEvent(chatEvent: ChatEventDTO) {
         try {
-            await this.backendGateway.sendDataToNLU(
-                chatEvent.content
-            );
-        } catch (error) {
-            console.error("Error sending data to NLU:", error);
-        }
-        
-        try {
-            await this.intentSelectorUseCase.execute(
-                chatEvent.content,
-                chatEvent
-            );
+            this.eventExecutionQueue.enqueue({
+                fn: async () => {
+                    await this.intentSelectorUseCase.execute(
+                        chatEvent.content,
+                        chatEvent
+                    )
+                    await this.backendGateway.sendDataToNLUTrain(
+                        chatEvent.content
+                    );
+                }
+            });
         } catch (error) {
             console.error("Error handling new processed chat event:", error);
             return;
@@ -74,7 +71,9 @@ export class AppEventHandlers {
     
     async handleScheduleAppointment(context: ChatEventDTO) {
         try {
-            await this.createNewAppointmentUsecase.execute(context);
+            this.eventExecutionQueue.enqueue({
+                fn: () => this.createNewAppointmentUsecase.execute(context)
+            });
         } catch (error) {
             console.error("Error handling schedule appointment intent:", error);
             return;

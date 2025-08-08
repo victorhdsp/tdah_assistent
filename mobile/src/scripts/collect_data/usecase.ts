@@ -1,6 +1,7 @@
 import sha1 from 'js-sha1';
 import { AccessibilityEventData } from "./EventType";
 import { ParserAcessibilityWhatsappScrapping } from "./parser";
+import axios from 'axios';
 
 export class CollectDataUseCase {
     constructor(
@@ -36,10 +37,9 @@ export class CollectDataUseCase {
         //     body: body
         // });
 
-        fetch('http://192.168.1.160:1234/before-extract', {
-            method: 'POST',
+        axios.post('http://192.168.1.160:1234/before-extract', {
             headers: { 'Content-Type': 'application/json' },
-            body: body,
+            data: body,
         });
     }
 }

@@ -8,7 +8,6 @@ import com.anonymous.tdah_assistent.EntryModule
 
 class EntryPackage : ReactPackage {
     override fun createNativeModules(reactContext: ReactApplicationContext): List<NativeModule> {
-        android.util.Log.d("EntryPackage", "Creating native modules")
         return listOf(EntryModule(reactContext))
     }
 

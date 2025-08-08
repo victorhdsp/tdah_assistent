@@ -20,11 +20,11 @@ import { BackendGateway } from "../infra/gateways/backendGateway";
 import { CreateNewAppointmentUseCase } from "../features/scheduleAppointment/createNewAppointmentUsecase";
 import { LLMService } from "../features/scheduleAppointment/services/llmService";
 import { CalendarService } from "../features/scheduleAppointment/services/calendarService";
-import { LocalEmbeddingService } from '../features/scheduleAppointment/services/localEmbeddingService';
-import { BackendEmbeddingService } from '../features/scheduleAppointment/services/backendEmbeddingService';
+import { BackendEmbeddingService, LocalEmbeddingService } from '../features/scheduleAppointment/services/EmbeddingService';
 import { ActionRepository } from "../infra/repositories/actionRepository";
 import { BertTokenizer } from '../features/scheduleAppointment/services/bertTokenizer';
 import { Config } from "../infra/config";
+import { EventExecutionQueue } from './EventExecutionQueue';
 
 export function EventsProvider() {
     const [isNativeReady, setNativeReady] = useState(false);
@@ -52,6 +52,7 @@ export function EventsProvider() {
         const nativeEventBus = new NativeEventBus();
         
         const backendGateway = new BackendGateway();
+        const eventExecutionQueue = new EventExecutionQueue();
 
         const chatMessagesRepository = new ChatMessagesRepository();
         const actionRepository = new ActionRepository();
@@ -61,7 +62,7 @@ export function EventsProvider() {
         const nativeAccessibilityService = new NativeAccessibilityService();
         const nluService = new NluService();
         const bertTokenizer = new BertTokenizer();
-        const localEmbeddingService = new LocalEmbeddingService(bertTokenizer);
+        const localEmbeddingService = new LocalEmbeddingService();
         const backendEmbeddingService = new BackendEmbeddingService(backendGateway);
         const vectorService = new VectorService(localEmbeddingService, backendEmbeddingService);
         const llmService = new LLMService();
@@ -71,7 +72,7 @@ export function EventsProvider() {
         const intentSelectorUseCase = new IntentSelectorUseCase(appEventBus, nluService);
         const createNewAppointmentUseCase = new CreateNewAppointmentUseCase(llmService, chatMessagesRepository, vectorService, calendarService, actionRepository);
 
-        const chatEventHandlers = new AppEventHandlers(appEventBus, bruteChatEventListener, intentSelectorUseCase, backendGateway, createNewAppointmentUseCase);
+        const chatEventHandlers = new AppEventHandlers(appEventBus, bruteChatEventListener, intentSelectorUseCase, backendGateway, createNewAppointmentUseCase, eventExecutionQueue);
         const nativeEventHandlers = new NativeEventHandlers(nativeEventBus, nativeAccessibilityService, appEventBus);
         
         ((async () => {
@@ -83,8 +84,6 @@ export function EventsProvider() {
             await bertTokenizer.init();
             console.log("Bert tokenizer initialized.");
             await calendarService.init();
-            console.log("Calendar service initialized.");
-            await localEmbeddingService.init();
             console.log("Local embedding service initialized.");
             await chatEventHandlers.register();
             console.log("App event handlers registered.");
